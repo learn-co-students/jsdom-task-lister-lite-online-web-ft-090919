@@ -16,7 +16,7 @@ body {
 }
 
 button {
-  font-size: 7px;
+  font-size: 14px;
 }
 
 #main-content {
@@ -33,6 +33,15 @@ button {
   box-shadow: 2px 5px 5px #333;
 }
 
+#create-task-form {
+  margin-top: 50px;
+  min-width: 550px;
+}
+
+.form-group {
+  padding: 5px;
+}
+
 #list {
   min-height: 500px;
   margin: 20px;
@@ -43,18 +52,51 @@ button {
   box-shadow: 2px 5px 5px #333;
 }
 
+.list-header {
+  min-width: 700px;
+  position: absolute;
+}
+
+.sort-group{
+  float: right;
+}
+
+.sort-button {
+  padding: 5px;
+}
+
+.sort-button:hover {
+  cursor: pointer;
+}
+
+.list-body {
+  margin-top: 50px;
+}
+
 #tasks {
   margin: 20px;
 }
 
 #tasks li {
   font-size: 18px;
-  padding: 5px;
+  padding-top: 10px;
+}
+
+#tasks li > span.high {
+  color: red;
+}
+
+#tasks li > span.medium {
+  color: #FFD800;
+}
+
+#tasks li > span.low {
+  color: green;
 }
 
 #tasks li > i {
   margin-left: 5px;
-  color: red;
+  color: darkred;
 }
 
 #tasks li > i:hover {
