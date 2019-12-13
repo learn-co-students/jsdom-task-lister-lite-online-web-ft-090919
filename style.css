@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -11,7 +16,7 @@ body {
 }
 
 button {
-  font-size: 7px;
+  font-size: 14px;
 }
 
 #main-content {
@@ -22,16 +27,78 @@ button {
   flex-direction: column;
   border: 1px solid #333;
   background: rgba(255, 255, 255, 0.3);
-  padding: 15px 20px 18px 18px;
+  padding: 50px;
+  margin: 20px;
   border-radius: 5px;
   box-shadow: 2px 5px 5px #333;
 }
 
+#create-task-form {
+  margin-top: 50px;
+  min-width: 550px;
+}
+
+.form-group {
+  padding: 5px;
+}
+
 #list {
-  margin: 10px;
+  min-height: 500px;
+  margin: 20px;
   border: 1px solid #333;
   background: rgba(255, 255, 255, 0.75);
   padding: 15px 20px 18px 18px;
   border-radius: 5px;
   box-shadow: 2px 5px 5px #333;
+}
+
+.list-header {
+  min-width: 700px;
+  position: absolute;
+}
+
+.sort-group{
+  float: right;
+}
+
+.sort-button {
+  padding: 5px;
+}
+
+.sort-button:hover {
+  cursor: pointer;
+}
+
+.list-body {
+  margin-top: 50px;
+}
+
+#tasks {
+  margin: 20px;
+}
+
+#tasks li {
+  font-size: 18px;
+  padding-top: 10px;
+}
+
+#tasks li > span.high {
+  color: red;
+}
+
+#tasks li > span.medium {
+  color: #FFD800;
+}
+
+#tasks li > span.low {
+  color: green;
+}
+
+#tasks li > i {
+  margin-left: 5px;
+  color: darkred;
+}
+
+#tasks li > i:hover {
+  cursor: pointer;
 }
