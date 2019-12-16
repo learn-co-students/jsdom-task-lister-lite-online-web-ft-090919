@@ -4,8 +4,7 @@
   "description": "One list, many tasks. Create a todo list in vanilla JS",
   "main": "src/index.js",
   "scripts": {
-    "postinstall": "gem install learn-co",
-    "test": "node_modules/browser-sync/bin/browser-sync.js start --config node_modules/learn-browser/bs-config.js"
+    "postinstall": "gem install learn-co"
   },
   "repository": {
     "type": "git",
