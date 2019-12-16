@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 document.getElementById('btn').addEventListener('click', function(event){
-  let content = document.getElementById('new-task-description').value 
+  let content = document.getElementById('new-task-description').value  
   document.getElementById('tasks').innerHTML += content
   event.preventDefault()
 }, false)
