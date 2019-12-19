@@ -1,15 +1,15 @@
 // collection of required DOM elements
 const domElements = {
-  formInput: document.querySelector('#new-task-description'),
-  prioritySelection: document.querySelector('#task-priority-select'),
-  submitButton: document.querySelector('input[type=submit]'),
-  taskList: document.getElementById('tasks'),
-  itemDelete: document.querySelector('#far'),
-  sortButtons: document.querySelector('.sort-group'),
-  resetButton: document.querySelector('#reset'),
+  formInput: document.querySelector("#new-task-description"),
+  prioritySelection: document.querySelector("#task-priority-select"),
+  submitButton: document.querySelector("input[type=submit]"),
+  taskList: document.getElementById("tasks"),
+  itemDelete: document.querySelector("#far"),
+  sortButtons: document.querySelector(".sort-group"),
+  resetButton: document.querySelector("#reset"),
   // does not include the reset button
-  lockableButtons: document.querySelectorAll('.lockable')
-}
+  lockableButtons: document.querySelectorAll(".lockable")
+};
 
 let tasks = [];
 // used to preserve tasks in pre-sorted state
@@ -64,6 +64,7 @@ function getTrashIcon() {
   const trashIcon = document.createElement("i");
   trashIcon.className += "far fa-trash-alt";
   trashIcon.className += " delete";
+  trashIcon.className += " lockable";
 
   return trashIcon;
 }
@@ -117,16 +118,16 @@ function sortList(sortingPreference) {
   }
   // sort high-to-low and vice-versa
   if (sortingPreference == "high") {
-    tasks.sort((a, b) => (a.priority < b.priority) ? 1 : -1);
+    tasks.sort((a, b) => (a.priority < b.priority ? 1 : -1));
   } else {
-    tasks.sort((a, b) => (a.priority > b.priority) ? 1 : -1);
+    tasks.sort((a, b) => (a.priority > b.priority ? 1 : -1));
   }
 }
 
 function clearList() {
   const listItems = document.querySelectorAll("#tasks li");
 
-  for (let i = 0; li = listItems[i]; i++) {
+  for (let i = 0; (li = listItems[i]); i++) {
     li.parentNode.removeChild(li);
   }
 }
@@ -138,16 +139,20 @@ function toggleListReset(buttonClass) {
   }
 }
 
-// prevent user from adding to list while in sorted dtate
+// prevent user from adding to / removing from list while in sorted state
 function toggleInputState(state) {
+  const trashIcons = document.querySelectorAll(".delete");
   const lockableButtons = domElements.lockableButtons;
-  for (const button of lockableButtons) {
-    if (state == "lock" && button.className == "lockable disabled") {
+  const allLockables = [...trashIcons, ...lockableButtons];
+
+  for (const lockable of allLockables) {
+    // console.log(lockable.classList.contains("disabled"));
+    if (state == "lock" && lockable.classList.contains("disabled")) {
       return;
-    } else if (state == "lock" && button.className == "lockable") {
-      button.className += " disabled";
-    } else if (state == "unlock" && button.className == "lockable disabled") {
-      button.className = "lockable";
+    } else if (state == "lock" && !lockable.classList.contains("disabled")) {
+      lockable.className += " disabled";
+    } else if (state == "unlock" && lockable.classList.contains("disabled")) {
+      lockable.className = "lockable";
     }
   }
 }
@@ -165,19 +170,30 @@ function handleSortSelection(input) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  domElements.submitButton.addEventListener('click', function(e) {
-    const taskName = domElements.formInput.value;
+function validateInput(name, selection) {
+  if (name == "" || selection == 0) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
-    e.preventDefault();
-    saveTask(taskName);
-    clearList();
-    renderList(tasks);
-    resetFields();
+document.addEventListener("DOMContentLoaded", () => {
+  domElements.submitButton.addEventListener("click", function(e) {
+    const taskName = domElements.formInput.value;
+    const prioritySelection = domElements.prioritySelection.selectedIndex;
+
+    if (validateInput(taskName, prioritySelection)) {
+      e.preventDefault();
+      saveTask(taskName);
+      clearList();
+      renderList(tasks);
+      resetFields();
+    }
   });
 
   // sort task
-  domElements.resetButton.addEventListener('click', function(e) {
+  domElements.resetButton.addEventListener("click", function(e) {
     // resume with preservedTasks state
     tasks = _.map(preservedTasks, _.clonedeep);
     domElements.resetButton.classList += " disabled";
@@ -188,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // delete task
-  domElements.taskList.addEventListener('click', function(e) {
+  domElements.taskList.addEventListener("click", function(e) {
     if (e.target.className == "far fa-trash-alt delete") {
       deleteTask(e.target);
     }

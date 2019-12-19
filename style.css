@@ -83,7 +83,7 @@ button {
 }
 
 .sort-group input[type="radio"]:focus + label {
-  border-color: red;;
+  border-color: red;
 }
 
 .sort-button#reset {
